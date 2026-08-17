@@ -37,3 +37,49 @@ Compile:
 
 ```bash
 javac -d task-manager/out task-manager/src/com/interview/HelloWorld.java
+
+## HackerRank exercises
+
+### Java Stdin and Stdout I
+
+Challenge:
+
+https://www.hackerrank.com/challenges/java-stdin-and-stdout-1/problem
+
+What I practiced:
+
+- Reading integer input with `Scanner`.
+- Storing input values in `int` variables.
+- Printing values with `System.out.println()`.
+- Compiling and running a Java class from the WSL terminal.
+
+Result:
+
+- Local compilation passed.
+- Local test cases passed.
+- All HackerRank test cases passed.
+
+### Java If-Else
+
+Challenge:
+
+https://www.hackerrank.com/challenges/java-if-else/problem
+
+What I practiced:
+
+- Determining whether an integer is odd or even with the modulo operator.
+- Using `if`, `else if`, and `else`.
+- Combining numeric range conditions with logical operators.
+- Testing boundary values.
+
+Result:
+
+- Local compilation passed.
+- Boundary tests passed.
+- All HackerRank test cases passed.
+
+## Day 1 reflection
+
+Today I completed the Java development environment setup and practiced the basic Java workflow from source code to execution. I compiled programs with `javac`, ran compiled classes with `java`, and used VS Code to run and debug Java code in WSL.
+
+I also practiced reading standard input and implementing conditional logic through two HackerRank exercises. The environment and Git problems encountered today reinforced the importance of checking the active shell, understanding file paths, and verifying which generated files are ignored before committing code.
