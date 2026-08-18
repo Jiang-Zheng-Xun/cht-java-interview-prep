@@ -54,11 +54,10 @@ public class JavaStdinAndStdoutI {
     public static void main(String[] args){
          Scanner scanner = new Scanner(System.in);
          
-        // TODO: Read the three Integers.
         int myInt = scanner.nextInt();
         int myInt2 = scanner.nextInt();
         int myInt3 = scanner.nextInt();
-        // TODO: Print the three Integers.
+
         System.out.println(myInt);
         System.out.println(myInt2);
         System.out.println(myInt3);
