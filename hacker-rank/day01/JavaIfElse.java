@@ -57,8 +57,6 @@ public class JavaIfElse {
         Scanner scanner = new Scanner(System.in);
         int number = scanner.nextInt();
 
-        // TODO: Determine whether the output is "Weird" or "Not Weird".
-        
         if(number>=1 && number<=100){
             if(number%2!=0){
                 System.out.println("Weird");
@@ -73,7 +71,7 @@ public class JavaIfElse {
                 System.out.println("Not Weird");
             }
         }
-        
+
         scanner.close();
     }
 }
