@@ -20,7 +20,7 @@ public class TaskListDemo {
         int taskCount = scanner.nextInt();
 
         scanner.nextLine();
-        
+
         if (taskCount < MIN_TASKS || taskCount > MAX_TASKS) {
             System.out.printf(
                     "The number of tasks must be between %d and %d.%n",
