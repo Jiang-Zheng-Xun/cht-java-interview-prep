@@ -1,4 +1,4 @@
-/**
+/*
  * HackerRank: Java Strings Introduction
  *
  * Challenge:
@@ -64,9 +64,9 @@ public class JavaStringsIntroduction {
             System.out.println("No");
         }
 
-        String First = first.substring(0, 1).toUpperCase()+first.substring(1);
-        String Second = second.substring(0, 1).toUpperCase()+second.substring(1);
-        System.out.println(First+" "+Second);
+        String capitalizedFirst = first.substring(0, 1).toUpperCase()+first.substring(1);
+        String capitalizedSecond = second.substring(0, 1).toUpperCase()+second.substring(1);
+        System.out.println(capitalizedFirst + " " + capitalizedSecond);
 
         scanner.close();
     }

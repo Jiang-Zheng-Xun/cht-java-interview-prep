@@ -1,4 +1,4 @@
-/**
+/*
  * HackerRank: Java Arraylist
  *
  * Challenge:
