@@ -1,0 +1,8 @@
+Before completion:
+1. [ ] Review OOP
+2. [ ] Write tests
+Complete task 2: true
+After completion:
+1. [ ] Review OOP
+2. [x] Write tests
+Complete task 99: false
