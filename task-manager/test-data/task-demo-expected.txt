@@ -1,0 +1,3 @@
+Title: Review encapsulation
+Completed: false
+Completed after mark: true
