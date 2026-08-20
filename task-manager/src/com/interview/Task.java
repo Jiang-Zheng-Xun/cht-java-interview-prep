@@ -8,7 +8,12 @@ public class Task {
     private boolean completed;
 
     public Task(String title) {
-        this.title = title;
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException(
+                "Task title cannot be blank.");
+        }
+
+        this.title = title.trim();
         this.completed = false;
     }
 
