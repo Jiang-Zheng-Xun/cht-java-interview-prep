@@ -1,0 +1,14 @@
+6
+30 bob 3.50
+20 alice 3.50
+10 alice 3.50
+40 zoe 4.00
+50 mike 2.75
+60 anna 3.75
+6
+30 bob 3.50
+20 alice 3.50
+10 alice 3.50
+40 zoe 4.00
+50 mike 2.75
+60 anna 3.75
