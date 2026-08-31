@@ -206,3 +206,35 @@ WHERE t.priority > (
 ORDER BY
     t.priority DESC,
     t.id ASC;
+
+SELECT
+    'Query 7A: Cartesian product row count' AS section;
+
+SELECT
+    COUNT(*) AS cartesian_row_count
+FROM users AS u
+CROSS JOIN tasks AS t;
+
+SELECT
+    'Query 7B: Cartesian product sample' AS section;
+
+SELECT
+    u.id AS user_id,
+    u.username,
+    t.id AS task_id,
+    t.user_id AS actual_owner_id
+FROM users AS u
+CROSS JOIN tasks AS t
+ORDER BY
+    u.id ASC,
+    t.id ASC
+LIMIT 12;
+
+SELECT
+    'Query 7C: Correct INNER JOIN row count' AS section;
+
+SELECT
+    COUNT(*) AS matched_row_count
+FROM users AS u
+INNER JOIN tasks AS t
+    ON u.id = t.user_id;
