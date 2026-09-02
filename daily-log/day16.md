@@ -87,8 +87,7 @@ Actual answering time: 25 minutes 53 seconds
 - Effective training time through D16-07: 4 hours 51 minutes 21 seconds
 - D16-08 overall time: 41 minutes
 - Effective time through D16-08: 5 hours 32 minutes 21 seconds
-- D16-09: pending final completion
-- Day 16 final effective time: pending final completion
+- Final delivery time is recorded in the Day 16 session summary
 
 ## Reflection
 
