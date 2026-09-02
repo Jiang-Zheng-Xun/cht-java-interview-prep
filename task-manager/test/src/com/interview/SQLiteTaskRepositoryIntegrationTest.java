@@ -91,6 +91,27 @@ class SQLiteTaskRepositoryIntegrationTest {
     }
 
     @Test
+    void deletesAllTasksAndReturnsAffectedRowCount()
+            throws SQLException {
+        repository.insertTask(
+                connection,
+                new Task("Original task A"));
+
+        repository.insertTask(
+                connection,
+                new Task("Original task B"));
+
+        int deletedRows =
+                repository.deleteAll(connection);
+
+        List<Task> remainingTasks =
+                repository.findAll(connection);
+
+        assertEquals(2, deletedRows);
+        assertTrue(remainingTasks.isEmpty());
+    }
+
+    @Test
     void storesInjectionShapedTitleAsData()
             throws SQLException {
         String title =

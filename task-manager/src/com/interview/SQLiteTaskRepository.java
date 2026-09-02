@@ -18,11 +18,18 @@ public class SQLiteTaskRepository {
             VALUES (?, ?)
             """;
 
+    private static final String DELETE_ALL_TASKS = """
+            DELETE FROM tasks
+            """;
+
     private static final String SELECT_ALL_TASKS = """
             SELECT title, completed
             FROM tasks
             ORDER BY id
             """;
+
+
+
 
     /**
      * Inserts one task through an existing connection.
@@ -51,6 +58,29 @@ public class SQLiteTaskRepository {
                     2,
                     task.isCompleted() ? 1 : 0);
 
+            return statement.executeUpdate();
+        }
+    }
+
+    /**
+     * Deletes every stored task through an existing connection.
+     *
+     * The caller owns the connection and its transaction boundary.
+     * This method does not commit or roll back the transaction.
+     *
+     * @param connection an open SQLite connection
+     * @return the number of deleted rows
+     * @throws SQLException if the delete fails
+     */
+    public int deleteAll(
+           Connection connection) throws SQLException {
+        Objects.requireNonNull(
+                connection,
+                "connection must not be null");
+
+        try (PreparedStatement statement =
+                connection.prepareStatement(
+                       DELETE_ALL_TASKS)) {
             return statement.executeUpdate();
         }
     }
