@@ -23,6 +23,24 @@ public class TaskService {
     }
 
     /**
+     * Loads all stored tasks through the service boundary.
+     *
+     * The caller owns the Connection lifecycle.
+     *
+     * @param connection an open SQLite connection
+     * @return stored tasks in insertion order
+     * @throws SQLException if the query fails
+     */
+    public List<Task> findAllTasks(
+            Connection connection) throws SQLException {
+        Objects.requireNonNull(
+                connection,
+                "connection must not be null");
+
+        return repository.findAll(connection);
+    }
+
+    /**
      * Replaces all stored tasks as one transaction.
      *
      * Existing tasks are deleted and the replacement tasks are inserted
