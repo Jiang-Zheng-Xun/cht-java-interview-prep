@@ -14,6 +14,7 @@ import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,6 +22,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TaskControllerIntegrationTest {
+    private static final String REJECT_TASK_TRIGGER = """
+            CREATE TRIGGER reject_task
+            BEFORE INSERT ON tasks
+            WHEN NEW.title = 'Rejected task'
+            BEGIN
+                SELECT RAISE(ABORT, 'rejected task');
+            END
+            """;
+
     @TempDir
     Path tempDirectory;
 
@@ -158,6 +168,79 @@ class TaskControllerIntegrationTest {
                 storedTasks.get(1).getTitle());
         assertTrue(
                 storedTasks.get(1).isCompleted());
+    }
+
+    @Test
+    void putTasksRollsBackWhenSecondInsertFails()
+            throws Exception {
+        Task originalTask =
+                new Task("Original task");
+
+        try (Connection connection =
+                database.openConnection()) {
+            taskService.replaceAllTasks(
+                    connection,
+                    List.of(originalTask));
+
+            createRejectTaskTrigger(connection);
+        }
+
+        String requestBody =
+                """
+                [
+                  {
+                    "title": "Replacement task A",
+                    "completed": false
+                  },
+                  {
+                    "title": "Rejected task",
+                    "completed": true
+                  }
+                ]
+                """;
+
+        HttpResponse<String> response =
+                sendPut(
+                        requestBody,
+                        "application/json");
+
+        assertEquals(
+                500,
+                response.statusCode());
+
+        assertEquals(
+                """
+                {"error":"Internal server error"}
+                """.strip(),
+                response.body());
+
+        assertFalse(
+                response.body()
+                        .contains("rejected task"));
+
+        assertFalse(
+                response.body()
+                        .contains("SQLException"));
+
+        try (Connection observerConnection =
+                database.openConnection()) {
+            List<Task> tasksAfterRollback =
+                    taskService.findAllTasks(
+                            observerConnection);
+
+            assertEquals(
+                    1,
+                    tasksAfterRollback.size());
+
+            assertEquals(
+                    "Original task",
+                    tasksAfterRollback.get(0)
+                            .getTitle());
+
+            assertFalse(
+                    tasksAfterRollback.get(0)
+                            .isCompleted());
+        }
     }
 
     @Test
@@ -313,6 +396,16 @@ class TaskControllerIntegrationTest {
         assertFalse(
                 response.body()
                         .contains("SQLException"));
+    }
+
+    private void createRejectTaskTrigger(
+            Connection connection)
+            throws SQLException {
+        try (Statement statement =
+                connection.createStatement()) {
+            statement.execute(
+                    REJECT_TASK_TRIGGER);
+        }
     }
 
     private void startServer(
